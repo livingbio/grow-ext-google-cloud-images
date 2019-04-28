@@ -23,6 +23,7 @@ class expires(object):
     def _set_response_headers(self, response_headers):
         # if response_headers.get('no-cache'):
         #     return
+
         if self.force_expires:
             expires = self.force_expires
             self.expire_interval = expires - datetime.utcnow()
@@ -48,6 +49,7 @@ class expires(object):
         def wrapper(h, *args, **kwargs):
             result = handler_method(h, *args, **kwargs)
             self._set_response_headers(result.headers)
+
             return result
 
         return wrapper
