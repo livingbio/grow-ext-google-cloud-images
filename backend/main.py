@@ -55,9 +55,8 @@ class UploadHandler(blobstore_handlers.BlobstoreUploadHandler):
 
 
 class RedirectHandler(webapp2.RequestHandler):
-    @expires(expire_interval=timedelta(days=30))
     @ndb.toplevel
-    @expires(expire_interval=timedelta(days=7))
+    @expires(expire_interval=timedelta(days=365))
     def get(self, gs_path):
         gs_path = self.request.get('gs_path') or gs_path
         gs_path = '/gs/{}'.format(gs_path.lstrip('/'))
