@@ -5,12 +5,13 @@ HTTP_DATE_FMT_UTC = "%a, %d %b %Y %H:%M:%S UTC"
 
 
 class expires(object):
-
-    def __init__(self, expire_interval=None, force_expires=None, edge=True, type="webapp2"):
+    def __init__(
+        self, expire_interval=None, force_expires=None, edge=True, type="webapp2"
+    ):
 
         assert expire_interval is None or isinstance(expire_interval, timedelta)
         assert force_expires is None or isinstance(force_expires, datetime)
-        assert type in ('webapp2', 'django')
+        assert type in ("webapp2", "django")
 
         self.force_expires = force_expires
         self.expire_interval = expire_interval
@@ -35,12 +36,11 @@ class expires(object):
         else:
             max_age = self.expire_interval.total_seconds()
 
-        response_headers['Expires'] = expires.strftime(HTTP_DATE_FMT_GMT)
+        response_headers["Expires"] = expires.strftime(HTTP_DATE_FMT_GMT)
 
         if self.edge:
-            response_headers['Cache-Control'] = 'public, max-age=%d' % max_age
-            response_headers['Pragma'] = 'Public'
-
+            response_headers["Cache-Control"] = "public, max-age=%d" % max_age
+            response_headers["Pragma"] = "Public"
 
     def webapp2(self, handler_method):
         if not self.expire_interval and not self.force_expires:
@@ -64,4 +64,4 @@ class expires(object):
 
             return response
 
-        return wrapper
+        return wrapperedg
